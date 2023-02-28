@@ -7,6 +7,8 @@ export Todo
 
 @kwdef mutable struct Todo <: AbstractModel
   id::DbId = DbId()
+  todo::String = "" 
+  completed::Bool = false
 end
 
 end
