@@ -1,6 +1,7 @@
 module TodosController
 using TodoMVC.Todos
-using Genie.Renderers, Genie.Renderers.Html
+#using Genie.Renderers, 
+using Genie.Renderers.Html
 using Genie.Router
 using SearchLight
 
@@ -9,6 +10,7 @@ function index()
 end
 
 function create()
+  
   todo = Todo(todo = params(:todo))        # 1
   if save(todo)                        # 2
     redirect("/?success=Todo created") # 3
