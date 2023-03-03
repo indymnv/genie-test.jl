@@ -2,7 +2,9 @@ module TodosController
 using TodoMVC.Todos
 #using Genie.Renderers, 
 using Genie.Renderers.Html
+using Genie.Renderers.Json
 using Genie.Router
+
 using SearchLight
 using SearchLight.Validation
 
@@ -25,5 +27,16 @@ function create()
     redirect("/?error=Could not save todo&todo=$(params(:todo))")
   end
 end
+
+function toggle()
+  todo = findone(Todo, id = params(:id))
+  if todo === nothing
+    return Router.error(NOT_FOUND, "Todo item with id
+      $(params(:id))", MIME"text/html")
+  end
+  todo.completed = ! todo.completed
+  save(todo) && json(:todo => todo)
+end
+
 
 end
