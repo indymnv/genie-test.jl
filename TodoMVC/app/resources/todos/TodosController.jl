@@ -4,7 +4,7 @@ using TodoMVC.Todos
 using Genie.Renderers.Html
 using Genie.Renderers.Json
 using Genie.Router
-
+using Genie.Requests
 using SearchLight
 using SearchLight.Validation
 
@@ -38,5 +38,14 @@ function toggle()
   save(todo) && json(:todo => todo)
 end
 
+function update()
+  todo = findone(Todo, id = params(:id))
+  if todo === nothing
+    return Router.error(NOT_FOUND, "Todo item with id
+      $(params(:id))", MIME"text/html")
+  end
+  todo.todo = replace(jsonpayload("todo"), "<br>"=>"")
+  save(todo) && json(todo)
+end
 
 end
